@@ -309,7 +309,8 @@ func DeleteMenu(wx *weixin.Weixin) {
 ```Go
 func SignJSSDK(wx *weixin.Weixin, url string) {
 	timestamp := time.Now().Unix()
-	noncestr := fmt.Sprintf("%d", c.randreader.Int())
+	r := rand.New(rand.NewSource(timestamp)) // Please to use a random seed.
+	noncestr := fmt.Sprintf("%d", r.Int())
 	sign, err := wx.JsSignature(url, timestamp, noncestr)
 	if err != nil {
 		fmt.Println(err)
